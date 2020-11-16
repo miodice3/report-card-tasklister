@@ -5,9 +5,8 @@ class SessionsController < ApplicationController
     end
 
     post '/signup' do
-        binding.pry
-#        <button type="submit" name="button">Click to sign up!</button>
-
+        @user = User.create(params)
+        redirect to "/users/welcome"
     end
  
     get '/login' do
@@ -19,6 +18,6 @@ class SessionsController < ApplicationController
     end
 
     post '/login' do
-
     end
+
 end
