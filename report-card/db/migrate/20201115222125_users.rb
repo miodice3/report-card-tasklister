@@ -10,16 +10,19 @@ class Users < ActiveRecord::Migration
       t.string :goal_name_1
       t.string :goal_frequency_1
       t.string :goal_type_1
+      t.integer :goal_units_1
       
       t.string :goal_enabled_2
       t.string :goal_name_2
       t.string :goal_frequency_2
       t.string :goal_type_2
+      t.integer :goal_units_2
 
       t.string :goal_enabled_3
       t.string :goal_name_3
       t.string :goal_frequency_3
       t.string :goal_type_3
+      t.integer :goal_units_3
     end
   end
 end

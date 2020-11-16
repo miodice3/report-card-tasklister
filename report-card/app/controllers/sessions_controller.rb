@@ -5,8 +5,10 @@ class SessionsController < ApplicationController
     end
 
     post '/signup' do
-        @user = User.create(params)
+        #binding.pry
+        @user = User.create(params[:user])
         redirect to "/users/welcome"
+        #get validation working, greet user by name
     end
  
     get '/login' do
