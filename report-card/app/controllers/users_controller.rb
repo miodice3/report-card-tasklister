@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 
     get '/users/:id' do
         @user = User.find_by_id(params[:id])
+        @range = (1..3).to_a
         erb :'users/show'
     end
 
@@ -21,6 +22,7 @@ class UsersController < ApplicationController
         @user=User.all.find_by_id(params[:id])
         @user.update(params[:goal])
         binding.pry
+        @user.save
 
         redirect "/users/#{@user.id}"
         #catch params, update user profile
