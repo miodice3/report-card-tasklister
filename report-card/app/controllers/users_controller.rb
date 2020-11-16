@@ -1,16 +1,32 @@
 class UsersController < ApplicationController
 
-    get '/users/welcome' do
-        
-        @range = (1..3).to_a
-        #binding.pry
-        erb :'users/welcome'
+    get '/users/:id' do
+        @user = User.find_by_id(params[:id])
+        erb :'users/show'
     end
 
-    post '/users/welcome' do
+    # get '/users/7' do
+    #     "Hello World"
+    #   end
+
+    get '/users/:id/edit' do
+        @range = (1..3).to_a
+        @user = User.find_by_id(params[:id])
+        #binding.pry
+        erb :'users/edit'
+    end
+
+    post '/users/:id' do
+ #       binding.pry
+        @user=User.all.find_by_id(params[:id])
+        @user.update(params[:goal])
         binding.pry
+
+        redirect "/users/#{@user.id}"
         #catch params, update user profile
     end
+
+
 
 end
 

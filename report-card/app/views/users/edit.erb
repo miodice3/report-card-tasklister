@@ -1,10 +1,11 @@
-<h1>Welcome, thanks for singing up!</h1>
+<h1>Welcome <%= @user.first_name %>, thanks for singing up!</h1>
 <br>
 
 <p>Please take some time to fill out your goals.  You have up to 10 goals to add.  Goals not checked will not be tracked, so you only need to check the boxes you would like to track.</p>
 <br>
-<form action="/users/welcome" method="post">
+<form action="/users/<%= @user.id %>" method="post">
 <% @range.each do |i| %>
+<p>Goal # <%= i %> </p>
 <p>Check to track: <input type="checkbox" name="goal[goal_enabled_<%= i %>]"></p>
 <p>Units & Goal Name: <input type="text" name="goal[goal_name_<%= i %>]"></p>
 <p>Goal frequency (days, integer only): <input type="integer" name="goal[goal_frequency_<%= i %>]"></p>
@@ -17,10 +18,10 @@ name="goal[goal_type_<%= i %>]" value="Achieved / Not Achieved" </p>
 
 <input type="radio" id="2"
 name="goal[goal_type_<%= i %>]" value="Units Tracking" </p>
-<label for="2">Units Tracking</label><br>
+<label for="2">Quantity Tracking</label><br>
 <br>
 
-<p>If units tracking, enter desired amount per so many days: <input type="integer" name="goal[goal_units_<%= i %>]"></p>
+<p>If quantity tracking, enter desired quantity per so many days: <input type="integer" name="goal[goal_qty_<%= i %>]"></p>
 <br>
 <br>
 <% end %>

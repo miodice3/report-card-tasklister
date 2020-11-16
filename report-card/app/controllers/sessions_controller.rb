@@ -6,9 +6,11 @@ class SessionsController < ApplicationController
 
     post '/signup' do
         #binding.pry
+        #bug fix entered w no password redirects to here http://127.0.0.1:9393/users//edit
         @user = User.create(params[:user])
-        redirect to "/users/welcome"
+        redirect to "/users/#{@user.id}/edit"
         #get validation working, greet user by name
+        #VALIDATE blank inputs, passwords, username, first name, etc, also duplicate usernames
     end
  
     get '/login' do
