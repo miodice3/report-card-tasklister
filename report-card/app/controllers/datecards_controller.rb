@@ -1,4 +1,4 @@
-class DatesController < ApplicationController
+class DatecardsController < ApplicationController
 
     get '/dates' do
         erb :'dates/index'

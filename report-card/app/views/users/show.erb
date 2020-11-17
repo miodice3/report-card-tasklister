@@ -1,30 +1,6 @@
-<h1>Welcome <%= @user.first_name %>, here are your profile & goals!</h1>
+<h1>Welcome <%= @user.first_name %>!</h1>
 <br>
 
-<p>Below are your current goals.  You have up to 10 goals to add.  Goals not checked will not be tracked, so you only need to check the boxes you would like to track.</p>
-<br>
-<form action="/users/<%= @user.id %>" method="post">
-<% @range.each do |i| %>
-<p>Goal # <%= i %> </p>
-
-<p>Check to track: <input type="checkbox" name="goal[goal_enabled_<%= i %>]" <%='checked' if @user.goal_enabled_1.include?("on") %>></p>
-<p>Units & Goal Name: <input type="text" name="goal[goal_name_<%= i %>]" value=<%= @user.goal_name_1%>></p>
-<p>Goal frequency (days, integer only): <input type="integer" name="goal[goal_frequency_<%= i %>]"></p>
-<p>Goal type:</p>
-
-<input type="radio" id="1"
-name="goal[goal_type_<%= i %>]" value="Achieved / Not Achieved" </p>
-<label for="1">Achieved / Not Achieved</label><br>
-
-
-<input type="radio" id="2"
-name="goal[goal_type_<%= i %>]" value="Units Tracking" </p>
-<label for="2">Quantity Tracking</label><br>
-<br>
-
-<p>If quantity tracking, enter desired quantity per so many days: <input type="integer" name="goal[goal_qty_<%= i %>]"></p>
-<br>
-<br>
-<% end %>
-<button type="submit">Click to save your goals</button>
-</form>
+<p>User Number: <%= @user.id %>
+<p>User First Name: <%= @user.first_name %>
+<p>User username: <%= @user.username %>
