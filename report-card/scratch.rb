@@ -161,7 +161,7 @@ TESTSJOIN MODEL
 [51] pry(main)> testjoin
 => #<GoalDateCard:0x00007f84868c9e90 id: 6, goal_id: 16, datecard_id: nil, binary_completed: nil, qty_completed: nil>
 
-[52] pry(main)> testjoin.datecard_id = today.id
+[52] pry(main)> testjoin.date_card_id = today.id
 => 7
 [53] pry(main)> testjoin
 => #<GoalDateCard:0x00007f84868c9e90 id: 6, goal_id: 16, datecard_id: 7, binary_completed: nil, qty_completed: nil>
@@ -172,7 +172,7 @@ TESTSJOIN MODEL
 => true
 
 
-????? how can i query to get all of the completed goals back for a user?
+
 [105] pry(main)> steve.date_cards
 => [#<DateCard:0x00007f84879f5368 id: 7, user_id: 4, date: "2020-11-16">]
 [106] pry(main)> today.goal_date_cards

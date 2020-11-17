@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20201116222906) do
 
   create_table "goal_date_cards", force: :cascade do |t|
     t.integer "goal_id"
-    t.integer "datecard_id"
+    t.integer "date_card_id"
     t.string  "binary_completed"
     t.integer "qty_completed"
   end
