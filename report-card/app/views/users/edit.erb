@@ -4,7 +4,8 @@
 <h1>you can update your information below!</h1>
 <form action="/users/<%= @user.id %>" method="post">
 <input id="hidden" type="hidden" name="_method" value="PATCH">
-<p>User Name: <input type="text" name="update[first_name]" id="name" value="<%=@user.first_name%>"></p>
+<p>First Name: <input type="text" name="update[first_name]" id="name" value="<%=@user.first_name%>"></p>
+<p>User Password: <input type="password" name="update[password]" id="name" value="<%=@user.password%>"></p>
 <button type="submit">Click to update your user profile</button>
 </form>
 <br><br>

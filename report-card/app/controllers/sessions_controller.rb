@@ -4,7 +4,11 @@ class SessionsController < ApplicationController
         erb :'sessions/signup'
     end
 
-
+    post '/signup' do
+        #binding.pry
+        @user = User.create(params[:user])
+        redirect to "/users/#{@user.id}"
+    end
  
     get '/login' do
         erb :'sessions/login'
@@ -14,7 +18,6 @@ class SessionsController < ApplicationController
         binding.pry
     end
 
-    post '/login' do
-    end
+
 
 end
