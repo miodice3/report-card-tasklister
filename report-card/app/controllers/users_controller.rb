@@ -12,13 +12,12 @@ class UsersController < ApplicationController
     # end
 
     post '/users' do
-        #binding.pry
         @user = User.create(params[:user])
         redirect to "/users/#{@user.id}"
     end
 
     get '/users/:id' do
-        #binding.pry
+        #need to put validations in here so the user cannot submit blank fields
         @user = User.find_by_id(params[:id])
         erb :'users/show'
     end

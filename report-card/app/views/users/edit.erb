@@ -8,7 +8,10 @@
 <p>User Password: <input type="password" name="update[password]" id="name" value="<%=@user.password%>"></p>
 <button type="submit">Click to update your user profile</button>
 </form>
-<br><br>
+
+<br>
+<br>
+
 <form action="/users/<%= @user.id %>" method="post">
 <input id="hidden" type="hidden" name="_method" value="DELETE">
 <button type="submit">Click to delete your user profile, forever!</button>

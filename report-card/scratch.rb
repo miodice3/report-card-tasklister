@@ -6,49 +6,15 @@ hello world
 <br>
 <a href="http://192.168.0.17/5/off" target="_blank"> box open </a>
 
-class Datecards < ActiveRecord::Migration
-    def change
-      create_table :datecards do |t|
-        t.string :goal_completed_1
-        t.string :goal_qty_1
-  
-        t.string :goal_completed_2
-        t.string :goal_qty_2
-  
-        t.string :goal_completed_3
-        t.string :goal_qty_3
-      end
-    end
-  end
 
-  class Users < ActiveRecord::Migration
-    def change
-      create_table :users do |t|
-        t.string :first_name
-        t.string :last_name
-        t.string :username
-        t.string :password_digest
-  
-        t.string :goal_enabled_1
-        t.string :goal_name_1
-        t.string :goal_frequency_1
-        t.string :goal_type_1
-        t.integer :goal_qty_1
-        
-        t.string :goal_enabled_2
-        t.string :goal_name_2
-        t.string :goal_frequency_2
-        t.string :goal_type_2
-        t.integer :goal_qty_2
-  
-        t.string :goal_enabled_3
-        t.string :goal_name_3
-        t.string :goal_frequency_3
-        t.string :goal_type_3
-        t.integer :goal_qty_3
-      end
-    end
-  end
+session[:user_id]
+we are taking the value of the key of user_id in the sessions hash and storing it as the user id of the post.
+difference between show all & edit capability:
+use show or edit if statements, where if session[:user_id] = post, date etc, .id
+  then allow editing or viewing
+else, this means that the logged in ID stored in sessions doesnt match the post, date_card, goal, etc of the user
+
+
 
   <p>Below are your current goals.  You have up to 10 goals to add.  Goals not checked will not be tracked, so you only need to check the boxes you would like to track.</p>
   <br>
@@ -171,8 +137,15 @@ TESTSJOIN MODEL
 [89] pry(main)> testjoin.save
 => true
 
+[24] pry(main)> steve.date_cards[0].goal_date_cards
+=> [#<GoalDateCard:0x00007fcf22977e78 id: 1, goal_id: 1, date_card_id: 1, binary_completed: nil, qty_completed: nil>]
+[25] pry(main)> steve.goal_date_cards
+=> [#<GoalDateCard:0x00007fcf22b2c570 id: 1, goal_id: 1, date_card_id: 1, binary_completed: nil, qty_completed: nil>]
+[26] pry(main)> steve.goals
+=> [#<Goal:0x00007fcf1e1be938 id: 1, user_id: 1, goal_name: "sales", goal_frequency: nil, goal_type: nil, goal_qty: nil>]
 
 
+********** fixed.
 [105] pry(main)> steve.date_cards
 => [#<DateCard:0x00007f84879f5368 id: 7, user_id: 4, date: "2020-11-16">]
 [106] pry(main)> today.goal_date_cards

@@ -1,3 +1,10 @@
+<% if session[:user_id] %>
+<h2>Hey, you are already logged in!</h2>
+
+<a href="/logout">Click here to logout.<a/>
+
+<% else %>
+
 <h1>Welcome to Report Card</h2>
 <h2>Please sign up below:</h2>
 
@@ -14,3 +21,4 @@
     <input type="submit" value="Sign Up">
 </form>
 
+<% end %>

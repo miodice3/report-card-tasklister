@@ -1,0 +1,14 @@
+you are signed in as ID number: <%= @user.id %> <br>
+user name: <%= @user.first_name %> <br>
+users username: <%= @user.username %> 
+<br>
+<br>
+date: <%= @datecard.date %><br>
+datecard id number is: (NOT USEFUL) <%= @datecard.id %><br>
+datecard creator: <%= @datecard.user.first_name %><br>
+datecards user id number is: <%= @datecard.user_id %>
+<br>
+
+<%if @datecard.user_id == session[:user_id] %>
+<a href=<%= "/dates/#{@datecard.id}/edit" %>>Edit this date</a>
+<% end %>
