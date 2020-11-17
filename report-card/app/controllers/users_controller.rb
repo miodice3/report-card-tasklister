@@ -23,20 +23,22 @@ class UsersController < ApplicationController
     end
 
     get '/users/:id/edit' do
-        binding.pry
+        #binding.pry
         @user = User.find_by_id(params[:id])
         erb :'users/edit'
     end
 
-    post '/users/:id' do
-        binding.pry
-        @user=User.all.find_by_id(params[:id])
-        @user.update(params[:goal])
-        #binding.pry
-        @user.save
+    patch '/users/:id' do
+        user=User.all.find_by_id(params[:id])
+        user.update(params[:update])
+        user.save
+        redirect "/users/#{user.id}"
+    end
 
-        redirect "/users/#{@user.id}"
-        #catch params, update user profile
+    delete '/users/:id' do
+        @user = User.find_by_id(params[:id])
+        @user.destroy
+        redirect "/users"
     end
 
 end

@@ -4,8 +4,11 @@
 <h1>you can update your information below!</h1>
 <form action="/users/<%= @user.id %>" method="post">
 <input id="hidden" type="hidden" name="_method" value="PATCH">
-<p>User Name: <input type="text" name="update[name]" id="name" value="<%=@user.first_name%>"></p>
-<p>Recipe Ingredients: <input type="text" name="update[ingredients]" id="ingredients" value="<%=@recipes.ingredients%>"></p>
-<p>Recipe cook time: <input type="integer" name="update[cook_time]" id="cook_time" value="<%=@recipes.cook_time%>"></p>
-<button type="submit">Click to edit this Recipe</button>
+<p>User Name: <input type="text" name="update[first_name]" id="name" value="<%=@user.first_name%>"></p>
+<button type="submit">Click to update your user profile</button>
+</form>
+<br><br>
+<form action="/users/<%= @user.id %>" method="post">
+<input id="hidden" type="hidden" name="_method" value="DELETE">
+<button type="submit">Click to delete your user profile, forever!</button>
 </form>
