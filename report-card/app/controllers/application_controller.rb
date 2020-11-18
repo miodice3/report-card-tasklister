@@ -9,6 +9,12 @@ class ApplicationController < Sinatra::Base
     set :views, 'app/views'
   end
 
+
+  get '/reportcard' do
+    
+  end
+
+
   # get "/" do
   #   erb :test
   # end

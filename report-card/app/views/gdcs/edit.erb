@@ -1,0 +1,28 @@
+this page will let you edit a gdc
+
+<br>
+
+<h1>you can update your gdc below!</h1>
+<form action="/gdcs/<%= @gdc.id %>" method="post">
+<input id="hidden" type="hidden" name="_method" value="PATCH">
+
+<p>gdc id: <%= @gdc.goal_id %></p>
+<p>gdc goal_id number: <%= @gdc.goal_id %></p>
+<p>gdc date_card_id number: <%= @gdc.date_card_id %></p>
+
+<p>Goal completed? 1 for yes, 2 for no<input type="text" name="update[binary_completed]" value="<%=@gdc.binary_completed%>"></p>
+<p>Goal should be achieved every <input type="text" name="update[qty_completed]" id="name" value="<%=@gdc.qty_completed%>"> days.</p>
+
+<br>
+<br>
+<button type="submit">Click to update your specific goal</button>
+</form>
+
+<br>
+<br>
+
+<form action="/gdcs/<%= @gdc.id %>" method="post">
+<input id="hidden" type="hidden" name="_method" value="DELETE">
+<button type="submit">Click to delete this individual goal date combination, forever!</button>
+</form>
+
