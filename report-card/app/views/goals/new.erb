@@ -1,0 +1,24 @@
+<h1>Please create your new goal here:</h1>
+<br>
+<form action="/goals" method="post">
+    <label for="goal_name">Goal Units and Name: *</label>
+    <input type="text" name="goal[goal_name]" value=""><br>
+    <br>
+    <label for="goal_frequency">Goal frequency, in days: *</label>
+    <input type="text" name="goal[goal_frequency]" value=""><br>
+    <br>
+    <input type="radio" id="goal_type" name="goal[goal_type]" value="1">
+    <label for="goal_type">Achieved Yes or No</label><br>
+    <input type="radio" id="goal_type" name="goal[goal_type]" value="2">
+    <label for="goal_type">Quantity Tracking</label><br>
+    <br>
+    <input type="submit" value="Create new goal">
+</form>
+
+<br><br>
+
+<p>* for instance, Hours of running</p>
+<p>*Every 1 day, or every 3 days, units are days. enter integer only</p>
+
+<p>goals marked "achieved yes or no" will be calculated off the rate of completion.</p>
+<p>goals marked binary will give a little information on percentage completed.</p>

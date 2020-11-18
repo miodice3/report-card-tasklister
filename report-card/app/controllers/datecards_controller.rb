@@ -5,13 +5,14 @@ class DatecardsController < ApplicationController
 # authorization: are you allowed to do that?
 # authentication: are you who you say you are?
 
-#look through code classes for multiple searches for ID comparrisons, you can make a private
-#section of the class and put a short def find_post method and all the code there. min 49 of mondays vid.
-#post.user_id = session[:user_id] << this goes to helper in application controller for helper methods
+    before do
+        if !session[:user_id]
+            halt 401, 'you do not have access to this page while not logged in. Return to the sign in page to continue.'
+        end
+    end
 
-before do
-    helper_method_is_logged_in?
- end    
+    #@date.user_id == session[:user_id]
+
 
     get '/dates' do
         @datecards = DateCard.all
@@ -24,6 +25,7 @@ before do
     end
 
     get '/dates/:id' do
+        #binding.pry
         @user = User.find_by(id: session[:user_id])
         @datecard = DateCard.find_by(id: params[:id].to_i)
         #binding.pry

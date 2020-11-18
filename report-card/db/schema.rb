@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20201116222906) do
   create_table "goals", force: :cascade do |t|
     t.integer "user_id"
     t.string  "goal_name"
-    t.string  "goal_frequency"
+    t.string  "goal_frequency"   #this may have to change to integer
     t.string  "goal_type"
     t.integer "goal_qty"
   end

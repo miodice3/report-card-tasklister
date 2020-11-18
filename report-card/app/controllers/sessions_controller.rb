@@ -17,17 +17,11 @@ class SessionsController < ApplicationController
         else
             redirect to "/signuperror"
         end
-        
     end
 
     get '/signuperror' do
         erb :'sessions/signuperror'
     end
-
-
-
-
-
 
     get '/login' do
         erb :'sessions/login'
