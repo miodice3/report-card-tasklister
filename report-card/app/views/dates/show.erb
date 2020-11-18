@@ -10,5 +10,8 @@ datecards user id number is: <%= @datecard.user_id %>
 <br>
 
 <%if @datecard.user_id == session[:user_id] %>
-<a href=<%= "/dates/#{@datecard.id}/edit" %>>Edit this date</a>
+<form action="/dates/<%=@datecard.id%>" method="post">
+<input id="hidden" type="hidden" name="_method" value="DELETE">
+<button type="submit">Click to delete this date record, forever!</button>
+</form>
 <% end %>

@@ -41,4 +41,11 @@ class UsersController < ApplicationController
         redirect "/users"
     end
 
+    post '/users/me' do
+        #binding.pry
+        user=User.find_by_id(session[:user_id])
+        redirect "/users/#{user.id}"
+    end
+
+
 end

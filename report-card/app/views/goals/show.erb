@@ -14,3 +14,17 @@ user name: <%= @user.first_name %> <br>
 users username: <%= @user.username %> 
 <br>
 <br>
+
+<%if @goal.user_id == session[:user_id] %>
+<form action="/goals/<%=@goal.id%>" method="post">
+<input id="hidden" type="hidden" name="_method" value="PATCH">
+<button type="submit">Click to edit this goal record!</button>
+</form>
+
+<br><br>
+
+<form action="/goals/<%=@goal.id%>" method="post">
+<input id="hidden" type="hidden" name="_method" value="DELETE">
+<button type="submit">Click to delete this goal record, forever!</button>
+</form>
+<% end %>

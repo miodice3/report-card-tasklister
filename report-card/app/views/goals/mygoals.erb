@@ -1,0 +1,10 @@
+Hello <%= @user.first_name %>, please see all your goals below:
+<br><br>
+
+
+<% @goals.all.each do |goal| %>
+    <a href="/goals/<%=goal.id%>"><%=goal.goal_name%></a>
+    <br>
+    <br>
+    <% end %>
+

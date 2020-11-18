@@ -16,6 +16,24 @@
   <body>
     <div class="wrapper">
 
+           <% if session[:user_id] %>
+          
+            <form action="/users/me" method="post">
+              <button type="submit">Click to see your profile</button>
+            </form>
+
+
+            <form action="/dates/mydates" method="post">
+              <button type="submit">Click to see your dates</button>
+            </form>
+
+            <form action="/goals/mygoals" method="post">
+              <button type="submit">Click to see your goals</button>
+            </form>
+
+          <% end %>
+ 
+
         <%= yield %>
 
       <footer class="branding">
