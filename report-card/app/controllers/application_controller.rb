@@ -1,4 +1,5 @@
 require './config/environment'
+require './config/environment'
 
 class ApplicationController < Sinatra::Base
 
@@ -10,8 +11,25 @@ class ApplicationController < Sinatra::Base
   end
 
 
-  get '/reportcard' do
-    
+  # get '/reports/new' do
+  #   erb :'report/new'
+  # end
+
+  get '/reportcards/new' do
+    @user = User.all.find_by_id(session[:user_id])
+    #binding.pry
+    erb :'reportcards/new'
+#    "Hello World"
+  end
+
+  post '/reports' do
+#    binding.pry
+    session_id = session[:user_id]
+    num_days = params[:num_days].to_i
+    ReportCard.generate(num_days, session_id)
+#    ReportCard.test
+    # tc = ReportCard.new
+    # tc.print
   end
 
 

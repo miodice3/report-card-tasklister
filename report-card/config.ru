@@ -12,6 +12,7 @@ use UsersController
 use DatecardsController
 use GoalsController
 use GoalDateCardsController
+use ReportCard
 
 # configure do
 #   set :public_folder, 'public'
