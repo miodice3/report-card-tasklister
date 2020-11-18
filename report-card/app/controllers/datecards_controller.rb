@@ -6,7 +6,9 @@ class DatecardsController < ApplicationController
 # authentication: are you who you say you are?
 
     before do
-        if !session[:user_id]
+        #binding.pry
+        #session[:user_id] = nil
+        if !session[:user_id] 
             halt 401, 'you do not have access to this page while not logged in. Return to the sign in page to continue.'
         end
     end

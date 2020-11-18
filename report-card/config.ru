@@ -10,6 +10,8 @@ run ApplicationController
 use SessionsController
 use UsersController
 use DatecardsController
+use GoalsController
+use GoalDateCardsController
 
 # configure do
 #   set :public_folder, 'public'

@@ -1,1 +1,35 @@
 this page will let you edit a goal
+
+<h1>Welcome <%= @user.first_name %></h1>
+<br>
+
+<h1>you can update your information below!</h1>
+<form action="/goals/<%= @goal.id %>" method="post">
+<input id="hidden" type="hidden" name="_method" value="PATCH">
+
+<p>Goal Units and Name: *<input type="text" name="update[goal_name]" value="<%=@goal.goal_name%>"></p>
+<p>Goal should be achieved every <input type="text" name="update[goal_frequency]" id="name" value="<%=@goal.goal_frequency%>"> days.</p>
+
+this is currently saved as goal type <%= @goal.goal_type %>
+<br>
+<input type="radio" id="goal_type" name="goal[goal_type]" value="1">
+<label for="goal_type">Achieved Yes or No (1)</label><br>
+<input type="radio" id="goal_type" name="goal[goal_type]" value="2">
+<label for="goal_type">Quantity Tracking (2)</label><br>
+
+<button type="submit">Click to update your user profile</button>
+</form>
+<br>
+<br>
+<p>* for instance, Hours of running</p>
+<p>*Every 1 day, or every 3 days, units are days. enter integer only</p>
+
+<p>goals marked "achieved yes or no" will be calculated off the rate of completion.</p>
+<p>goals marked binary will give a little information on percentage completed.</p>
+
+<br><br>
+
+<form action="/goals/<%= @goal.id %>" method="post">
+<input id="hidden" type="hidden" name="_method" value="DELETE">
+<button type="submit">Click to delete this goal, forever!</button>
+</form>

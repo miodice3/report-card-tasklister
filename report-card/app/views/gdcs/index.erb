@@ -1,0 +1,23 @@
+goals index page, this will list all the goal date cards
+
+<br>
+<br>
+
+<% @gdcs.each do |gdc| %>
+    <label>goal date card id number</label>
+    <p><%= gdc.id %></p>
+
+    <label>goal date card name</label>
+    <p><%= gdc.goal_id %></p>
+
+    <label>goal date card frequency</label>
+    <p><%= gdc.date_card_id %></p>
+
+    <label>goal date card type</label>
+    <p><%= gdc.binary_completed%></p>
+    
+    <label>goal date card quantity</label>
+    <p><%= gdc.qty_completed %></p>
+    <br>
+    <br>
+    <% end %>

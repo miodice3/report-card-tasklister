@@ -1,4 +1,4 @@
-class DatecardsController < ApplicationController
+class GoalsController < ApplicationController
     
     before do
         if !session[:user_id]
@@ -8,6 +8,7 @@ class DatecardsController < ApplicationController
 
     get '/goals' do
         @goals = Goal.all
+        #binding.pry
         erb :'goals/index'
     end
 
@@ -16,7 +17,7 @@ class DatecardsController < ApplicationController
     end
 
     post '/goals' do
-        binding.pry
+        #binding.pry
         @goal = Goal.create(params[:goal])
         @goal.user_id=session[:user_id]
         @goal.save
@@ -24,25 +25,31 @@ class DatecardsController < ApplicationController
     end
 
     get '/goals/:id/edit' do
+        @user = User.find_by_id(params[:id])
+        @goal = Goal.find_by_id(params[:id])
         erb :'goals/edit'
     end
 
     get '/goals/:id' do
         @goal = Goal.find_by_id(params[:id])
         @user = User.find_by_id(session[:user_id])
+        #binding.pry
         erb :'goals/show'
     end
 
-    # post '/dates' do
-        # if DateCard.find_by(date: params[:date], user_id: session[:user_id])
-        #     datecard = DateCard.find_by(date: params[:date], user_id: session[:user_id])
-        #     redirect "/dates/#{datecard.id}"
-        # else
-        #     datecard = DateCard.new(date: params[:date])
-        #     datecard.user_id = session[:user_id]
-        #     datecard.save
-        #     redirect "/dates/#{datecard.id}"
-        # end
-    # end
+    patch '/goals/:id' do
+        #binding.pry
+        #currently any user can edit any goal
+        goal = Goal.find_by_id(params[:id])
+        goal.update(params[:update])
+        goal.save
+        redirect "/goals/#{goal.id}"
+    end
+
+    delete '/goals/:id' do
+        goal = Goal.find_by_id(params[:id])
+        goal.destroy
+        redirect "/goals"
+    end
 
 end

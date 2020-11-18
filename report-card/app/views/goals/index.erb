@@ -1,1 +1,19 @@
 goals index page, this will list all the goals
+
+<br>
+<br>
+
+<% @goals.each do |goal| %>
+    <label>goal id number</label>
+    <p><%= goal.id %></p>
+    <label>goal name</label>
+    <p><%= goal.goal_name %></p>
+    <label>goal frequency</label>
+    <p><%= goal.goal_frequency %></p>
+    <label>goal type</label>
+    <p><%= goal.goal_type %></p>
+    <label>goal quantity</label>
+    <p><%= goal.goal_qty %></p>
+    <br>
+    <br>
+    <% end %>
