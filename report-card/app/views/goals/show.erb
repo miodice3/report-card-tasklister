@@ -16,8 +16,7 @@ users username: <%= @user.username %>
 <br>
 
 <%if @goal.user_id == session[:user_id] %>
-<form action="/goals/<%=@goal.id%>" method="post">
-<input id="hidden" type="hidden" name="_method" value="PATCH">
+<form action="/goals/<%=@goal.id%>/edit" method="get">
 <button type="submit">Click to edit this goal record!</button>
 </form>
 

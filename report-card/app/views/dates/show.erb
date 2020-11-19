@@ -8,6 +8,19 @@ datecard id number is: (NOT USEFUL) <%= @datecard.id %><br>
 datecard creator: <%= @datecard.user.first_name %><br>
 datecards user id number is: <%= @datecard.user_id %>
 <br>
+<br>
+<br>
+
+<% @user.goals.each do |goal| %>
+    <a href="/dates/<%=goal.id%>"><%=goal.goal_name%></a>
+    <br>
+    <br>
+    <% end %>
+
+
+
+
+
 
 <%if @datecard.user_id == session[:user_id] %>
 <form action="/dates/<%=@datecard.id%>" method="post">

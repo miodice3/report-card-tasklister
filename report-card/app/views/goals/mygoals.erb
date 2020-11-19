@@ -1,6 +1,13 @@
 Hello <%= @user.first_name %>, please see all your goals below:
 <br><br>
 
+    <form action="/goals/new" method="get">
+        <button type="submit">Want to create a new goal? Click here!</button>
+    </form>
+
+    <br>
+    <br>
+
 
 <% @goals.all.each do |goal| %>
     <a href="/goals/<%=goal.id%>"><%=goal.goal_name%></a>
