@@ -5,5 +5,11 @@ gdc ID number: <%= @gdc.id %><br>
 
 gdc goal id: <%= @gdc.goal_id %><br>
 gdc date card id: <%= @gdc.date_card_id %> days.<br>
-goal binary completed: <%= @gdc.binary_completed %><br>
+goal binary completed: <%= @gdc.binary_completed %>.      1 for yes, 2 for no.<br>
 goal guantity completed: <%= @gdc.qty_completed %><br>
+
+<form action="/gdcs/<%= @gdc.id %>" method="post">
+<input id="hidden" type="hidden" name="_method" value="DELETE">
+<br>
+<button type="submit">Click to delete achievement, forever! (you can remake one if this is incorrect)</button>
+</form>

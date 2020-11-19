@@ -14,21 +14,34 @@ datecards user id number is: <%= @datecard.user_id %>
 <% @user.goals.each do |goal| %>
 
 goal: <%= goal.goal_name %><br>
+
     <form action="/gdcs" method="post">
         <label for="goal_id">Goal ID:</label>
         <input type="text" name="gdc[goal_id]" value="<%=goal.id%>"><br>
 
         <label for="date_card_id">date_card_id:</label>
-        <input type="text" name="gdc[date_card_id]" value="<%=@datecard.id%>"><br>
+        
+        <input type="text" name="gdc[date_card_id]" value="<%=@datecard.id%>"><br><br>
 
-    <input type="submit" value="View & edit this goal, for this date.">
+        this is a type <%= goal.goal_type%> goal. 1 = binary, 2 = qty tracking<br>
+
+        if this goal is a type 1 goal, select yes or no for the below radio buttons.<br><br>
+        <input type="radio" id="goal_type" name="gdc[binary_completed]" value="1">
+        <label for="goal_type">Yes, achieved</label><br>
+        <input type="radio" id="goal_type" name="gdc[binary_completed]" value="2">
+        <label for="goal_type">Not achieved</label><br><br>
+        if this goal is a type 2 goal, please enter the quantity you have completed.<br>
+
+        <label for="qty_completed">entery quantity completed for type 2 goals:</label>
+        <input type="text" name="gdc[qty_completed]" value=""><br>
+
+    <input type="submit" value="Click here to submit goal information for <%=@datecard.date%>.">
     </form>
 
 
     <br>
-
     <br>
-
+    <br>
 
     <% end %>
 

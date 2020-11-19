@@ -1,5 +1,13 @@
 class UsersController < ApplicationController
 
+    before do
+        if !session[:user_id]
+            halt 401, 'you do not have access to this page while not logged in. Return to the sign in page to continue.'
+        end
+        # pass if request.path_info == "/login" || request.path_info == "/signup"
+        #or error
+    end
+
     get '/users' do
         @users = User.all
         #binding.pry

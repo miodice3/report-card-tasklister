@@ -10,6 +10,7 @@ class GoalDateCardsController < ApplicationController
     end
 
     get '/gdcs' do
+        binding.pry
         @gdcs = GoalDateCard.all
         erb :'gdcs/index'
     end
@@ -29,15 +30,20 @@ class GoalDateCardsController < ApplicationController
     end
 
     post '/gdcs' do
-        #binding.pry
-        gdc = GoalDateCard.create(params[:gdc])
-#        gdc.user_id=session[:user_id]
-#        gdc.save
-        redirect "/gdcs/#{gdc.id}"
+        #tis works to create record from clicking, need to remove inputs and send id's as slugs
+       # binding.pry
+            if @gdc=GoalDateCard.find_by(goal_id: params[:gdc][:goal_id].to_i, date_card_id: params[:gdc][:date_card_id].to_i)
+                @gdc.update(params[:gdc])
+                @gdc.save
+            else
+                #binding.pry
+                @gdc = GoalDateCard.create(params[:gdc])
+            end
+        redirect "/gdcs/#{@gdc.id}"
     end
 
     get '/gdcs/:id/edit' do
-        #binding.pry
+        binding.pry
 #        @user = User.find_by_id(params[:id])
         @gdc = GoalDateCard.find_by_id(params[:id])
         erb :'gdcs/edit'
@@ -51,7 +57,7 @@ class GoalDateCardsController < ApplicationController
     end
 
     patch '/gdcs/:id' do
-        #binding.pry
+        binding.pry
         #currently any user can edit any goal
         gdc = GoalDateCard.find_by_id(params[:id])
         gdc.update(params[:update])
