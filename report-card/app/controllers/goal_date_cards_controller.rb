@@ -14,8 +14,16 @@ class GoalDateCardsController < ApplicationController
         erb :'gdcs/index'
     end
 
+    get '/gdcs/auto' do
+        binding.pry
+    end
+
+    post '/gdcs/autocreate/:id' do
+        binding.pry
+    end
+
     get '/gdcs/new' do
-        #binding.pry
+        binding.pry
 #        @user = User.all.find_by_id(session[:user_id])
         erb :'gdcs/new'
     end

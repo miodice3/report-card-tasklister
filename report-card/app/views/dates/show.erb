@@ -12,11 +12,25 @@ datecards user id number is: <%= @datecard.user_id %>
 <br>
 
 <% @user.goals.each do |goal| %>
-    <a href="/dates/<%=goal.id%>"><%=goal.goal_name%></a>
-    <br>
-    <br>
-    <% end %>
 
+goal: <%= goal.goal_name %><br>
+    <form action="/gdcs" method="post">
+        <label for="goal_id">Goal ID:</label>
+        <input type="text" name="gdc[goal_id]" value="<%=goal.id%>"><br>
+
+        <label for="date_card_id">date_card_id:</label>
+        <input type="text" name="gdc[date_card_id]" value="<%=@datecard.id%>"><br>
+
+    <input type="submit" value="View & edit this goal, for this date.">
+    </form>
+
+
+    <br>
+
+    <br>
+
+
+    <% end %>
 
 
 
