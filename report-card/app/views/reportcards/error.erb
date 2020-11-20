@@ -1,0 +1,8 @@
+<% if session[:user_id] %>
+You are not authorized to view this page.  Please go back.
+
+<% else %>
+
+<a href="/login">Click to login</a><br>
+
+<% end %>

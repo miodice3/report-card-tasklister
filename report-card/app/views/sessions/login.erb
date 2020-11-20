@@ -5,7 +5,8 @@
 
 <% else %>
 
-<h2>Login</h2>
+<h1>Welcome to Report Card</h2>
+<h2>Please sign in below:</h2>
 
 <form action="/login" method="post">
     <label for="username">Username:</label>
@@ -14,7 +15,10 @@
     <label for="password">Password:</label>
     <input type="password" name="password" value="">
     <br>
-    <button type="submit" name="button">Click to sign up!</button>
+    <button type="submit" name="button">Log in</button>
 </form>
 
 <% end %>
+
+<br>
+Not signed up yet? Click <a href="/signup">here</a> to create an account.<br>

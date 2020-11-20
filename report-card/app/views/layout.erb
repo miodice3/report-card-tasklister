@@ -17,36 +17,22 @@
     <div class="wrapper">
 
            <% if session[:user_id] %>
-          
-            <form action="/users/me" method="post">
-              <button type="submit">Click to see your profile</button>
-            </form>
-
-
-            <form action="/goals/mygoals" method="post">
-              <button type="submit">Click to see your goals</button>
-            </form>
-
-
-            <form action="/dates/mydates" method="post">
-              <button type="submit">Click to see your dates</button>
-            </form>
-
-            <form action="/reportcards/new" method="get">
-              <button type="submit">Click generate report card</button>
-            </form>
-
-            <form action="/logout" method="get">
-              <button type="submit">Log out</button>
-            </form>
-
+            <a href="/users/me">Click to view your profile</a><br>
+            <a href="/goals/mygoals">Click to view your goals</a><br>
+            <a href="/dates/mydates">Click to view your dates</a><br>
+            <a href="/reportcards/new">Click generate report card</a><br>
           <% end %>
  
-
         <%= yield %>
 
       <footer class="branding">
-        <small>&copy; 2020 <strong>ReportCard</strong></small>
+        <small>&copy; 2020 <strong>ReportCard</strong></small><br>
+        <% if session[:user_id] %>
+            <br>
+            <form action="/logout" method="get">
+              <button type="submit">Log out</button>
+            </form>
+            <% end %>        
       </footer>
     </div>
 

@@ -1,42 +1,41 @@
 class UsersController < ApplicationController
-
-    before do
-        if !session[:user_id]
-            halt 401, 'you do not have access to this page while not logged in. Return to the sign in page to continue.'
-        end
-        # pass if request.path_info == "/login" || request.path_info == "/signup"
-        #or error
-    end
-
-    get '/users' do
-        @users = User.all
-        #binding.pry
-        erb :'users/index'
-    end
-    
-    #temporarily disabled, routing new user sign up through sessions controller class
-    # get '/users/new' do
-    #     erb :'users/new'
-    # end
-
+   
     post '/users' do
+        if session[:user_id] != params[:id].to_i
+            redirect to "/error"
+        end
         @user = User.create(params[:user])
         redirect to "/users/#{@user.id}"
     end
 
+    get '/users/me' do
+        @user=User.find_by_id(session[:user_id])
+        redirect "/users/#{@user.id}"
+    end
+
     get '/users/:id' do
         #need to put validations in here so the user cannot submit blank fields
+        if session[:user_id] != params[:id].to_i
+            redirect to "/error"
+        end
+#        binding.pry
         @user = User.find_by_id(params[:id])
         erb :'users/show'
     end
 
     get '/users/:id/edit' do
         #binding.pry
+        if session[:user_id] != params[:id].to_i
+            redirect to "/error"
+        end
         @user = User.find_by_id(params[:id])
         erb :'users/edit'
     end
 
     patch '/users/:id' do
+        if session[:user_id] != params[:id].to_i
+            redirect to "/error"
+        end
         user=User.all.find_by_id(params[:id])
         user.update(params[:update])
         user.save
@@ -44,16 +43,12 @@ class UsersController < ApplicationController
     end
 
     delete '/users/:id' do
+        if session[:user_id] != params[:id].to_i
+            redirect to "/error"
+        end
         @user = User.find_by_id(params[:id])
         @user.destroy
         redirect "/users"
     end
-
-    post '/users/me' do
-        #binding.pry
-        user=User.find_by_id(session[:user_id])
-        redirect "/users/#{user.id}"
-    end
-
 
 end

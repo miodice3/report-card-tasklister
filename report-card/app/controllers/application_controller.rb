@@ -10,35 +10,33 @@ class ApplicationController < Sinatra::Base
     set :views, 'app/views'
   end
 
+  before do
+    pass if request.path_info == "/login" || request.path_info == "/signup" || request.path_info == "/error"
 
-  # get '/reports/new' do
-  #   erb :'report/new'
-  # end
+    if !session[:user_id]
+      redirect to "/error"
+    end
+  end
+
+  get '/error' do
+    erb :'reportcards/error'
+  end
 
   get '/reportcards/new' do
     @user = User.all.find_by_id(session[:user_id])
-    #binding.pry
     erb :'reportcards/new'
-#    "Hello World"
   end
 
   post '/reports' do
-    #binding.pry
     session_id = session[:user_id]
     num_days = params[:num_days].to_i
     @summary=ReportCard.run(num_days, session_id)
-    #@summary=ReportCard.generate(num_days, session_id)
-    #binding.pry
     erb :'reportcards/generated'
-    # redirect "reportcards/generated"
-#    redirect "/gdcs/#{@gdc.id}"
-#    binding.pry
   end
 
   get '/reportcards/generated' do
     erb :'reportcards/generated'
   end
-
 
 end
 
@@ -77,5 +75,3 @@ end
 #look through code classes for multiple searches for ID comparrisons, you can make a private
 #section of the class and put a short def find_post method and all the code there. min 49 of mondays vid.
 #post.user_id = session[:user_id] << this goes to helper in application controller for helper methods
-
-#add time stamp validation & log halt session if session time hasnt been recently renewed
