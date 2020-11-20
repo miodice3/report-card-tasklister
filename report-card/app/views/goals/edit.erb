@@ -16,6 +16,8 @@ this is currently saved as goal type <%= @goal.goal_type %>
 <label for="goal_type">Achieved Yes or No (1)</label><br>
 <input type="radio" id="goal_type" name="goal[goal_type]" value="2">
 <label for="goal_type">Quantity Tracking (2)</label><br>
+<br>
+<p>For goal type 2, Edit Qty: *<input type="text" name="update[goal_qty]" value="<%=@goal.goal_qty%>"></p>
 
 <button type="submit">Click to update your goal</button>
 </form>

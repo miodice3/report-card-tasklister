@@ -26,8 +26,9 @@ class ApplicationController < Sinatra::Base
     #binding.pry
     session_id = session[:user_id]
     num_days = params[:num_days].to_i
-    @summary=ReportCard.generate(num_days, session_id)
-    binding.pry
+    @summary=ReportCard.run(num_days, session_id)
+    #@summary=ReportCard.generate(num_days, session_id)
+    #binding.pry
     erb :'reportcards/generated'
     # redirect "reportcards/generated"
 #    redirect "/gdcs/#{@gdc.id}"
