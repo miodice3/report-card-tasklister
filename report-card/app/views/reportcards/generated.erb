@@ -9,7 +9,7 @@ table, th, td {
 }
 </style>
 
-<table style="width:50%">
+<table style="width:100%">
   <tr>
     <th>Goal Name</th>
     <th>Targeted Frequency</th>
@@ -20,12 +20,12 @@ table, th, td {
   </tr>
   <% @summary.each do |i| %>
   <tr>
-    <td><%= i[0] %></td>
-    <td><%= i[1] %></td>
-    <td><%= i[2] %></td>
-    <td><%= i[3] %></td>
-    <td><%= i[4] %>%</td>
-    <td><%= i[5] %></td>
+    <td><%= i[:goal_name] %></td>
+    <td><%= i[:goal_frequency] %></td>
+    <td><%= i[:date_array] %></td>
+    <td><%= i[:counter] %></td>
+    <td><%= i[:percentage] %>%</td>
+    <td><%= i[:grade] %></td>
   </tr>
   <% end %>
 </table>

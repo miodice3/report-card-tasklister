@@ -6,7 +6,8 @@ class ReportCard < ApplicationController
         self.varset
         self.date_populate
         self.sortgoals
-        self.binary
+        self.binary2
+        #self.binary
         self.qty
     end
 
@@ -22,6 +23,7 @@ class ReportCard < ApplicationController
 
     def self.sortgoals
         @user.goals.each do |i|
+            #binding.pry
             if i.goal_type == "1"
                 @binary_goals << i
             elsif i.goal_type == "2"
@@ -63,7 +65,7 @@ class ReportCard < ApplicationController
 #                @percentage = (@each_goal_summary[1]/@each_goal_summary[3]/@each_goal_summary[2]*100).truncate
                 @percentage = @counter.sum/(i.goal_frequency.to_i*@date_array.length)*100.0
                 @percentage = @percentage.truncate
-                binding.pry
+                #binding.pry
                 @each_goal_summary << @percentage
                 
                 @each_goal_summary << (self.grade(@percentage))  #call grade, pass percentage, recieve letter grade
@@ -72,34 +74,76 @@ class ReportCard < ApplicationController
             @return_array
     end
 
+    def self.binary2
+        #THIS LOGIC IS ONLY FOR BINARY GOALS SO FAR.
+                        @binary_goals.each do |i|                 #start with iterating over all goals, one at a time, to aggregate data from days requested
+                            #binding.pry
+                            @each_goal_summary = {}
+                            @each_goal_summary[:goal_name]=i.goal_name
+                            @each_goal_summary[:goal_frequency]= i.goal_frequency.to_i
+                            @each_goal_summary[:date_array]= @date_array.length
+        
+                                @counter = []     #used to total up times goal marked as completed
+                                j=0
+                                @date_array.length.times do            #iterate over date array, check gdc instances for each date & goal combination.
+                                    #binding.pry
+                                    dt = @user.date_cards.find_by(date: @date_array[j])  #returns date instance, used in search, with goals unique id also
+                                    gdc = GoalDateCard.find_by(goal_id: i.id, date_card_id: dt.id)  #returns gdc instance                            
+                                        #binding.pry 
+                                        if gdc.binary_completed == "1"
+                                            @counter << 1.0
+                                         end
+                                    j += 1  #increment counter and advance through date array to check next unique gdc instance
+                        end
+        
+                        @each_goal_summary[:counter]= @counter.sum
+        #                @percentage = (@each_goal_summary[1]/@each_goal_summary[3]/@each_goal_summary[2]*100).truncate
+        #binding.pry                
+                        @percentage = ((@counter.sum*1.0)/(@date_array.length/i.goal_frequency.to_i))*100
+                        #@percentage = @counter.sum/(i.goal_frequency.to_i*@date_array.length)*100.0
+                        @percentage = @percentage.truncate
+                        #binding.pry
+                        @each_goal_summary[:percentage]= @percentage
+                        
+                        @each_goal_summary[:grade]= (self.grade(@percentage))  #call grade, pass percentage, recieve letter grade
+                        #binding.pry
+                        @return_array << @each_goal_summary  #shovel each goal summary into main return array.
+                    end
+                    @return_array
+            end
+        
+
     def self.qty
             @qty_goals.each do |i|                 #start with iterating over all goals, one at a time, to aggregate data from days requested
-                @each_goal_summary = []
-                @each_goal_summary << i.goal_name
-                @each_goal_summary << i.goal_frequency.to_i
-                @each_goal_summary << @date_array.length
+                #binding.pry
+                @each_goal_summary = {}
+                @each_goal_summary[:goal_name]=i.goal_name
+                @each_goal_summary[:goal_frequency]= i.goal_frequency.to_i
+                @each_goal_summary[:date_array]= @date_array.length
 
                     @counter = [0]     #used to total up times goal marked as completed
                     j=0
                     @date_array.length.times do            #iterate over date array, check gdc instances for each date & goal combination.
                         dt = @user.date_cards.find_by(date: @date_array[j])  #returns date instance, used in search, with goals unique id also
                         gdc = GoalDateCard.find_by(goal_id: i.id, date_card_id: dt.id)  #returns gdc instance
-                        
+                                #binding.pry
 #                            if gdc.binary_completed == "1"
                                 @counter << gdc.qty_completed
 #                            end
                         j += 1  #increment counter and advance through date array to check next unique gdc instance
             end
 
-            @each_goal_summary << @counter.sum
-#            @percentage = (@each_goal_summary[1]/@each_goal_summary[3]/@each_goal_summary[2]*100).truncate
-            @percentage = (@counter.sum*1.0)/i.goal_qty*@date_array.length*1.0/i.goal_frequency.to_i*100
-            #@percentage = @counter.sum/(i.goal_frequency.to_i*@date_array.length)*100.0
-            @percentage = @percentage.truncate
-            binding.pry
-            @each_goal_summary << @percentage
+            @each_goal_summary[:counter]= @counter.sum
+
+            #@percentage = (@counter.sum*1.0)/(i.goal_qty*@date_array.length)/i.goal_frequency.to_i*100
+            @percentage = ((@counter.sum*1.0)/((i.goal_qty/i.goal_frequency.to_i)*@date_array.length))*100
             #binding.pry
-            @each_goal_summary << (self.grade(@percentage))  #call grade, pass percentage, recieve letter grade
+            @percentage = @percentage.truncate
+            #binding.pry
+            @each_goal_summary[:percentage]= @percentage
+            #binding.pry
+            @each_goal_summary[:grade]= (self.grade(@percentage))  #call grade, pass percentage, recieve letter grade
+            #binding.pry
             @return_array << @each_goal_summary  #shovel each goal summary into main return array.
         end
         @return_array
