@@ -1,0 +1,31 @@
+test generated.erb file
+
+<style>
+table, th, td {
+  border: 1px solid black;
+  text-align: left;
+  border-spacing: 2px;
+  padding: 2px;
+}
+</style>
+
+<table style="width:50%">
+  <tr>
+    <th>Goal Name</th>
+    <th>Targeted Frequency</th>
+    <th>Total Date Range</th>
+    <th>Times Achieved</th>
+    <th>Percentage</th>
+    <th>Grade</th>
+  </tr>
+  <% @summary.each do |i| %>
+  <tr>
+    <td><%= i[0] %></td>
+    <td><%= i[1] %></td>
+    <td><%= i[2] %></td>
+    <td><%= i[3] %></td>
+    <td><%= i[4] %>%</td>
+    <td><%= i[5] %></td>
+  </tr>
+  <% end %>
+</table>

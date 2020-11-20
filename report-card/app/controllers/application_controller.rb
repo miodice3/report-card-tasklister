@@ -23,22 +23,23 @@ class ApplicationController < Sinatra::Base
   end
 
   post '/reports' do
-#    binding.pry
+    #binding.pry
     session_id = session[:user_id]
     num_days = params[:num_days].to_i
-    ReportCard.generate(num_days, session_id)
-#    ReportCard.test
-    # tc = ReportCard.new
-    # tc.print
+    @summary=ReportCard.generate(num_days, session_id)
+    binding.pry
+    erb :'reportcards/generated'
+    # redirect "reportcards/generated"
+#    redirect "/gdcs/#{@gdc.id}"
+#    binding.pry
+  end
+
+  get '/reportcards/generated' do
+    erb :'reportcards/generated'
   end
 
 
-  # get "/" do
-  #   erb :test
-  # end
-
 end
-
 
     #    helper_method_is_logged_in?
 

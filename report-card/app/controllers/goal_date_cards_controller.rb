@@ -30,7 +30,9 @@ class GoalDateCardsController < ApplicationController
     end
 
     post '/gdcs' do
-        #tis works to create record from clicking, need to remove inputs and send id's as slugs
+       #binding.pry
+       #validate it here to make sure edits are still coming in for owners cards & dates, if both pass, allowcreation.
+       #tis works to create record from clicking, need to remove inputs and send id's as slugs
        # binding.pry
             if @gdc=GoalDateCard.find_by(goal_id: params[:gdc][:goal_id].to_i, date_card_id: params[:gdc][:date_card_id].to_i)
                 @gdc.update(params[:gdc])

@@ -16,8 +16,11 @@ datecards user id number is: <%= @datecard.user_id %>
 goal: <%= goal.goal_name %><br>
 
     <form action="/gdcs" method="post">
+        
         <label for="goal_id">Goal ID:</label>
         <input type="text" name="gdc[goal_id]" value="<%=goal.id%>"><br>
+
+        <input type="hidden" name="gdctest[goal_id]" value="<%=goal.id%>"><br>
 
         <label for="date_card_id">date_card_id:</label>
         
