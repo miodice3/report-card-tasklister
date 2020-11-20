@@ -1,35 +1,28 @@
-you are signed in as ID number: <%= @user.id %> <br>
-user name: <%= @user.first_name %> <br>
-users username: <%= @user.username %> 
 <br>
+<h2>Please complete the information for this days goals below:</h2>
 <br>
-date: <%= @datecard.date %><br>
-datecard id number is: (NOT USEFUL) <%= @datecard.id %><br>
-datecard creator: <%= @datecard.user.first_name %><br>
-datecards user id number is: <%= @datecard.user_id %>
-<br>
-<br>
-<br>
+
 
 <% @user.goals.each do |goal| %>
 
 Goal: <%= goal.goal_name %><br>
 
     <form action="/gdcs" method="post">
-        this is a type <%= goal.goal_type%> goal.<br><br>
-
-        if this goal is a type 1 goal, select yes or no for the below radio buttons.<br><br>
+        <% if goal.goal_type == "1" %>
+        This is an achieved yes / no type goal.  Please enter your selection below:<br><br>
         <input type="radio" id="goal_type" name="gdc[binary_completed]" value="1">
         <label for="goal_type">Yes, achieved</label><br>
         <input type="radio" id="goal_type" name="gdc[binary_completed]" value="2">
-        <label for="goal_type">Not achieved</label><br><br>
-        if this goal is a type 2 goal, please enter the quantity you have completed.<br>
+        <label for="goal_type">Not achieved</label><br>
+        <% end %>
 
-        <label for="qty_completed">entery quantity completed for type 2 goals:</label>
+        <% if goal.goal_type == "2" %>
+        This is a quantity tracking goal.<br>
+        <label for="qty_completed">enter quantity completed for today:</label><br><br>
         <input type="text" name="gdc[qty_completed]" value=""><br>
-
+        <% end %>
         <input type="hidden" name="gdc[goal_id]" value="<%=goal.id%>">
-        <input type="hidden" name="gdc[date_card_id]" value="<%=@datecard.id%>">
+        <input type="hidden" name="gdc[date_card_id]" value="<%=@datecard.id%>"><br>
     <input type="submit" value="Click here to submit goal information for <%=@datecard.date%>.">
     </form>
 
@@ -40,10 +33,6 @@ Goal: <%= goal.goal_name %><br>
     <br>
 
     <% end %>
-
-
-
-
 
 <%if @datecard.user_id == session[:user_id] %>
 <form action="/dates/<%=@datecard.id%>" method="post">
