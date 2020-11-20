@@ -1,15 +1,16 @@
 class GoalDateCardsController < ApplicationController
 
-    get '/gdcs' do
-        @gdcs = GoalDateCard.all
-        erb :'gdcs/index'
-    end
+    # get '/gdcs' do
+    #     @gdcs = GoalDateCard.all
+    #     erb :'gdcs/index'
+    # end
 
     get '/gdcs/new' do
         erb :'gdcs/new'
     end
 
     post '/gdcs' do
+        binding.pry
             if @gdc=GoalDateCard.find_by(goal_id: params[:gdc][:goal_id].to_i, date_card_id: params[:gdc][:date_card_id].to_i)
                 @gdc.update(params[:gdc])
                 @gdc.save

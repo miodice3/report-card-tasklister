@@ -16,12 +16,19 @@ class DatecardsController < ApplicationController
     end
 
     get '/dates/:id' do
-        @user = User.find_by(id: session[:user_id])
-        @datecard = DateCard.find_by(id: params[:id].to_i)
-        erb :'dates/show'
+        user = User.find_by_id(session[:user_id])
+            if !user.date_cards.find_by_id(params[:id].to_i)
+                redirect to "/error"
+            else
+                @user = User.find_by(id: session[:user_id])
+                @datecard = DateCard.find_by(id: params[:id].to_i)
+                erb :'dates/show'
+            end
+
     end
 
     post '/dates' do
+        #binding.pry
         if DateCard.find_by(date: params[:date], user_id: session[:user_id])
             datecard = DateCard.find_by(date: params[:date], user_id: session[:user_id])
             redirect "/dates/#{datecard.id}"
@@ -33,10 +40,38 @@ class DatecardsController < ApplicationController
         end
     end
 
+    post '/datestest' do
+        #binding.pry
+        if DateCard.find_by(date: params[:date], user_id: session[:user_id])    #if users date card found, redirect to existing date card
+            datecard = DateCard.find_by(date: params[:date], user_id: session[:user_id])
+            redirect "/dates/#{datecard.id}"
+        else
+            datecard = DateCard.new(date: params[:date])
+            datecard.user_id = session[:user_id]
+            datecard.save
+            #binding.pry
+
+            user=User.find_by_id(session[:user_id])
+            goals=user.goals
+
+            goals.each do |goal|
+                tmp = GoalDateCard.create(goal_id: goal.id, date_card_id: datecard.id)
+                #binding.pry
+            end
+
+            redirect "/dates/#{datecard.id}"
+        end
+    end
+
     delete '/dates/:id' do
-        @date = DateCard.find_by_id(params[:id])
-        @date.destroy
-        redirect "/dates/mydates"
+        user = user = User.find_by_id(session[:user_id])
+            if !user.date_cards.find_by_id(params[:id].to_i)
+                redirect to "/error"
+            else
+                @date = DateCard.find_by_id(params[:id])
+                @date.destroy
+                redirect "/dates/mydates"
+            end
     end
 
 end
