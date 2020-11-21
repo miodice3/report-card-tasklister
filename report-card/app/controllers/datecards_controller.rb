@@ -16,32 +16,33 @@ class DatecardsController < ApplicationController
     end
 
     get '/dates/:id' do
-        user = User.find_by_id(session[:user_id])
+        #binding.pry
+        user = User.find_by_id(session[:user_id])   #current user
             if !user.date_cards.find_by_id(params[:id].to_i)
                 redirect to "/error"
             else
-                @user = User.find_by(id: session[:user_id])
+                #binding.pry
+                @user = User.find_by_id(session[:user_id])
                 @datecard = DateCard.find_by(id: params[:id].to_i)
                 erb :'dates/show'
             end
 
     end
 
-    post '/dates' do
-        #binding.pry
-        if DateCard.find_by(date: params[:date], user_id: session[:user_id])
-            datecard = DateCard.find_by(date: params[:date], user_id: session[:user_id])
-            redirect "/dates/#{datecard.id}"
-        else
-            datecard = DateCard.new(date: params[:date])
-            datecard.user_id = session[:user_id]
-            datecard.save
-            redirect "/dates/#{datecard.id}"
-        end
-    end
-
+    # post '/dates' do
+    #     #binding.pry
+    #     if DateCard.find_by(date: params[:date], user_id: session[:user_id])
+    #         datecard = DateCard.find_by(date: params[:date], user_id: session[:user_id])
+    #         redirect "/dates/#{datecard.id}"
+    #     else
+    #         datecard = DateCard.new(date: params[:date])
+    #         datecard.user_id = session[:user_id]
+    #         datecard.save
+    #         redirect "/dates/#{datecard.id}"
+    #     end
+    # end
+############## review this one tomorrow.
     post '/datestest' do
-        #binding.pry
         if DateCard.find_by(date: params[:date], user_id: session[:user_id])    #if users date card found, redirect to existing date card
             datecard = DateCard.find_by(date: params[:date], user_id: session[:user_id])
             redirect "/dates/#{datecard.id}"
@@ -64,7 +65,7 @@ class DatecardsController < ApplicationController
     end
 
     delete '/dates/:id' do
-        user = user = User.find_by_id(session[:user_id])
+        user = User.find_by_id(session[:user_id])
             if !user.date_cards.find_by_id(params[:id].to_i)
                 redirect to "/error"
             else

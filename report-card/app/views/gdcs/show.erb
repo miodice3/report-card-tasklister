@@ -1,15 +1,13 @@
-goals date cards show.erb this will show you one uniqe gdc card
+<br>
+This is your goal card for a particular date.
 <br><br>
 
-gdc ID number: <%= @gdc.id %><br>
-
-gdc goal id: <%= @gdc.goal_id %><br>
-gdc date card id: <%= @gdc.date_card_id %> days.<br>
-goal binary completed: <%= @gdc.binary_completed %>.      1 for yes, 2 for no.<br>
-goal guantity completed: <%= @gdc.qty_completed %><br>
-
-<form action="/gdcs/<%= @gdc.id %>" method="post">
-<input id="hidden" type="hidden" name="_method" value="DELETE">
+If this is a binary type goal, the status is below (1 for completed, 2 for not completed)<br>
+goal binary completed: <%= @gdc.binary_completed %><br>
 <br>
-<button type="submit">Click to delete achievement, forever! (you can remake one if this is incorrect)</button>
-</form>
+<br>
+If this is a quantity tracking goal, the quantity submitted is below:<br>
+goal guantity completed: <%= @gdc.qty_completed %><br>
+<br>
+<br>
+go back to re-submit and edit this record.
