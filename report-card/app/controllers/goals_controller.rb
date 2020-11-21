@@ -1,8 +1,11 @@
 class GoalsController < ApplicationController
     
-    get '/goals' do
-        @goals = Goal.all
-        erb :'goals/index'
+    def is_authorized
+        @goal = Goal.find_by_id(params[:id])
+        @user = User.find_by_id(session[:user_id])
+        if @user.id != @goal.user_id
+            redirect to "/error"
+        end
     end
 
     get '/goals/new' do
@@ -16,35 +19,32 @@ class GoalsController < ApplicationController
     end
 
     post '/goals' do
-        @goal = Goal.create(params[:goal])
+        @goal = Goal.create(params[:goal])  #creation with session ID, user can only input fields that become their own goals.
         @goal.user_id=session[:user_id]
         @goal.save
         redirect "/goals/#{@goal.id}"
     end
 
-    get '/goals/:id' do
-        @goal = Goal.find_by_id(params[:id])
-        @user = User.find_by_id(session[:user_id])
+    get '/goals/:id' do 
+        is_authorized
         erb :'goals/show'
     end
 
     get '/goals/:id/edit' do
-        @user=User.find_by_id(session[:user_id])
-        @goal = Goal.find_by_id(params[:id])
+        is_authorized
         erb :'goals/edit'
     end
 
     patch '/goals/:id' do
-        #currently any user can edit any goal
-        goal = Goal.find_by_id(params[:id])
+        is_authorized
         goal.update(params[:update])
         goal.save
         redirect "/goals/#{goal.id}"
     end
 
     delete '/goals/:id' do
-        goal = Goal.find_by_id(params[:id])
-        goal.destroy
+        is_authorized
+        @goal.destroy
         redirect "/goals/mygoals"
     end
 

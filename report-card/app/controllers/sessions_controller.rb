@@ -10,6 +10,7 @@ class SessionsController < ApplicationController
 
     post '/signup' do
        #also put validations in for blanks.
+       #binding.pry
         if !User.find_by(username: params[:user][:username])
             @user = User.create(params[:user])
             session[:user_id] = @user.id
@@ -28,12 +29,20 @@ class SessionsController < ApplicationController
     end
 
     post '/login' do
-        @user = User.find_by(username: params[:username])
-        if @user.authenticate(params[:password])
-            session[:user_id] = @user.id
-            redirect to "/users/#{@user.id}"
-        else
-            erb :'sessions/login'
+        #binding.pry
+        if User.all.find_by(username: params[:username])
+            #binding.pry
+            @user = User.find_by(username: params[:username])
+            if @user.authenticate(params[:password])
+                session[:user_id] = @user.id
+                redirect to "/users/#{@user.id}"
+            else
+                erb :'sessions/login'
+            end
+        # else
+        #     binding.pry
+        #     @user = User.create(username: params[:username], password: params[:password])
+        #     redirect to "/users/#{@user.id}"
         end
     end
 

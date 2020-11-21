@@ -1,17 +1,19 @@
-goals show.erb this will show you one goal
-<br><br>
 
-Goal Owner ID number: <%= @goal.user_id %><br>
-Goal Name: <%= @goal.goal_name %><br>
+<br>
+<br>
+user name: <%= @user.first_name %> <br>
+username: <%= @user.username %> <br><br>
+Goal Name: <%= @goal.goal_name %><br><br>
+<% if @goal.goal_type = "1" %>
 goal frequency, you aim to achieve this every <%= @goal.goal_frequency %> days.<br>
-goal type: <%= @goal.goal_type %><br>
+<%else%>
 goal guantity: <%= @goal.goal_qty %><br>
+<% end %>
 <br>
 
 
-you are signed in as ID number: <%= @user.id %> <br>
-user name: <%= @user.first_name %> <br>
-users username: <%= @user.username %> 
+
+
 <br>
 <br>
 
