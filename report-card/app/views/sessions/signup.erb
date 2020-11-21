@@ -7,16 +7,17 @@
 
 <h1>Welcome to Report Card</h2>
 <h2>Please sign up below:</h2>
+<h3>All fields must be at least 5 characters long.</h3>
 
 <form action="/signup" method="post">
     <label for="first_name">First Name:</label>
-    <input type="text" name="user[first_name]" value=""><br>
+    <input type="text" name="user[first_name]" minlength="1" value=""><br>
     
     <label for="username">Username:</label>
-    <input type="text" name="user[username]" value=""><br>
+    <input type="text" name="user[username]" minlength="1" value=""><br>
     
     <label for="password">Password:</label>
-    <input type="password" name="user[password]" value=""><br>
+    <input type="password" name="user[password]" minlength="1" value=""><br>
 
     <input type="submit" value="Sign Up">
 </form>

@@ -1,5 +1,11 @@
 class SessionsController < ApplicationController
 
+    def length_validation
+        if !(params[:user][:first_name].length > 5 && params[:user][:username].length > 5 && params[:user][:password].length > 5)
+            redirect to "/signuperror"
+        end
+    end
+
     get '/signup' do
         if session[:user_id]
             erb :'sessions/signup'
@@ -9,8 +15,8 @@ class SessionsController < ApplicationController
     end
 
     post '/signup' do
-       #also put validations in for blanks.
-       #binding.pry
+        length_validation
+
         if !User.find_by(username: params[:user][:username])
             @user = User.create(params[:user])
             session[:user_id] = @user.id
@@ -29,9 +35,7 @@ class SessionsController < ApplicationController
     end
 
     post '/login' do
-        #binding.pry
         if User.all.find_by(username: params[:username])
-            #binding.pry
             @user = User.find_by(username: params[:username])
             if @user.authenticate(params[:password])
                 session[:user_id] = @user.id
@@ -39,10 +43,6 @@ class SessionsController < ApplicationController
             else
                 erb :'sessions/login'
             end
-        # else
-        #     binding.pry
-        #     @user = User.create(username: params[:username], password: params[:password])
-        #     redirect to "/users/#{@user.id}"
         end
     end
 
@@ -50,13 +50,5 @@ class SessionsController < ApplicationController
         session.clear
         redirect '/login'
     end
-
-    # get '/loggedin' do
-    #     if session[:user_id]
-    #         "you are logged in"
-    #     else
-    #         "you are not logged in"
-    #     end
-    # end
 
 end
