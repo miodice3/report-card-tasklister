@@ -15,6 +15,6 @@ require_all 'app'
 
 =begin
 git add .
-git commit -m " Put your notes here! "     
+git commit -m " Put your notes here! "
 git push   <then check github
 =end

@@ -42,12 +42,12 @@ class SessionsController < ApplicationController
         redirect '/login'
     end
 
-    get '/loggedin' do
-        if session[:user_id]
-            "you are logged in"
-        else
-            "you are not logged in"
-        end
-    end
+    # get '/loggedin' do
+    #     if session[:user_id]
+    #         "you are logged in"
+    #     else
+    #         "you are not logged in"
+    #     end
+    # end
 
 end

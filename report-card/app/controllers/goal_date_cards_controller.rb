@@ -52,8 +52,7 @@ class GoalDateCardsController < ApplicationController
         end
         gdc = GoalDateCard.find_by_id(params[:id])
         gdc.destroy
-        redirect "/dates/mydates"
-        
+        redirect "/dates/mydates"     
     end
 
 end

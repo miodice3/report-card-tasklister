@@ -57,7 +57,9 @@ class DatecardsController < ApplicationController
 
             goals.each do |goal|
                 tmp = GoalDateCard.create(goal_id: goal.id, date_card_id: datecard.id)
-                #binding.pry
+                tmp.binary_completed= "2" #initialize to not achieved
+                tmp.qty_completed = 0 #initialized to zero units achieved
+                tmp.save
             end
 
             redirect "/dates/#{datecard.id}"
