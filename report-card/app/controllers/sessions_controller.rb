@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
 
     def length_validation
-        if !(params[:user][:first_name].length > 5 && params[:user][:username].length > 5 && params[:user][:password].length > 5)
+        if !(params[:user][:first_name].length > 4 && params[:user][:username].length > 4 && params[:user][:password].length > 4)
             redirect to "/signuperror"
         end
     end
