@@ -5,6 +5,7 @@ class ReportCard < ApplicationController
         @session_id = session_id     # session id used to return exact user instance
         self.varset
         self.date_populate
+        self.prep
         self.sortgoals
         self.binary
         self.qty
@@ -16,6 +17,18 @@ class ReportCard < ApplicationController
         @date_array = []               #used to collect all dates in correct format that user requested
         @binary_goals = []
         @qty_goals = []
+    end
+
+    def self.prep #method creates blank goal date cards where user does not have them due to adding goals after dates created
+        @date_array.each do |date|
+            #recieves date string
+            date_instance = @user.date_cards.find_by(date: date)
+            @user.goals.each do |goal|
+                if !GoalDateCard.find_by(date_card_id: date_instance.id, goal_id: goal.id)
+                    GoalDateCard.create(date_card_id: date_instance.id, goal_id: goal.id, binary_completed: "2", qty_completed: 0)
+                end
+            end
+        end
     end
 
     def self.sortgoals
@@ -48,17 +61,20 @@ class ReportCard < ApplicationController
             j=0
                 @date_array.length.times do            #iterate over date array, check gdc instances for each date & goal combination.
                     dt = @user.date_cards.find_by(date: @date_array[j])  #returns date instance, used in search, with goals unique id also
-                    gdc = GoalDateCard.find_by(goal_id: i.id, date_card_id: dt.id)  #returns gdc instance                            
+                    gdc = GoalDateCard.find_by(goal_id: i.id, date_card_id: dt.id)  #returns gdc instance  
+                                              #binding.pry
                         if gdc.binary_completed == "1"
                             @counter << 1.0
                         end
+                        #binding.pry
                     j += 1  #increment counter and advance through date array to check next unique gdc instance
                 end
-
+                #binding.pry
+        @each_goal_summary[:units] = "times"
         @each_goal_summary[:counter]= @counter.sum           
         @percentage = ((@counter.sum*1.0)/((@date_array.length*1.0)/(i.goal_frequency.to_i*1.0)))*100
         @each_goal_summary[:percentage]= @percentage.truncate
-        @each_goal_summary[:grade]= (self.grade(@percentage))  #call grade, pass percentage, recieve letter grade
+        @each_goal_summary[:grade]= (self.grade(@percentage.truncate))  #call grade, pass percentage, recieve letter grade
         @return_array << @each_goal_summary  #shovel each goal summary into main return array.
         end
     @return_array
@@ -79,12 +95,12 @@ class ReportCard < ApplicationController
                         @counter << gdc.qty_completed
                 j += 1  #increment counter and advance through date array to check next unique gdc instance
             end
-
+        @each_goal_summary[:units] = "units"
         @each_goal_summary[:counter]= @counter.sum
         @percentage = ((@counter.sum*1.0)/(((i.goal_qty*1.0)/(i.goal_frequency.to_i*1.0))*@date_array.length))*100
         @percentage = @percentage.truncate
         @each_goal_summary[:percentage]= @percentage
-        @each_goal_summary[:grade]= (self.grade(@percentage))  #call grade, pass percentage, recieve letter grade
+        @each_goal_summary[:grade]= (self.grade(@percentage.truncate))  #call grade, pass percentage, recieve letter grade
         @return_array << @each_goal_summary  #shovel each goal summary into main return array.
         end
     @return_array

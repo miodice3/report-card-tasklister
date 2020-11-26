@@ -30,6 +30,7 @@ class ApplicationController < Sinatra::Base
   post '/reports' do
     session_id = session[:user_id]
     num_days = params[:num_days].to_i
+#    @user = User.find_by_id(session_id[:user_id])
     @summary=ReportCard.run(num_days, session_id)
     erb :'reportcards/generated'
   end

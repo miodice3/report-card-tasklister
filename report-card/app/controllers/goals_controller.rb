@@ -1,5 +1,18 @@
 class GoalsController < ApplicationController
     
+    #current user helper method
+    #method that checks the current user exists (logged in) and redirect if user is not logged in
+
+    def current_user
+        @user = User.find_by_id(session[:user_id])
+    end
+
+    def redirect_if_not_logged_in
+        if !current_user
+            redirect to "/error"
+        end
+    end
+
     def is_authorized
         @goal = Goal.find_by_id(params[:id])
         @user = User.find_by_id(session[:user_id])
@@ -7,6 +20,12 @@ class GoalsController < ApplicationController
             redirect to "/error"
         end
     end
+
+    # def is_authorized
+    #     if current_user.goals.find_by_id(params[:id])
+    #         redirect to "/error"
+    #     end
+    # end
 
     get '/goals/new' do
         erb :'goals/new'
@@ -37,9 +56,9 @@ class GoalsController < ApplicationController
 
     patch '/goals/:id' do
         is_authorized
-        goal.update(params[:update])
-        goal.save
-        redirect "/goals/#{goal.id}"
+        @goal.update(params[:update])
+        @goal.save
+        redirect "/goals/#{@goal.id}"
     end
 
     delete '/goals/:id' do

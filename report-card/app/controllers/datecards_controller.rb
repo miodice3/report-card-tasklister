@@ -1,5 +1,5 @@
 class DatecardsController < ApplicationController
-
+#opportunity for helper method for current user, too much repetition
     def is_authorized
         @user = User.find_by_id(session[:user_id])   #current user
         if !@user.date_cards.find_by_id(params[:id].to_i)
@@ -13,14 +13,22 @@ class DatecardsController < ApplicationController
 
     get '/dates/mydates' do
         @user = User.find_by_id(session[:user_id])
-        @dates=@user.date_cards
+        @dates = @user.date_cards
         erb :'dates/mydates'
     end
 
     get '/dates/:id' do
         is_authorized
+        #binding.pry
         @user = User.find_by_id(session[:user_id])
-        @datecard = DateCard.find_by(id: params[:id].to_i)
+        @datecard = @user.date_cards.find_by(id: params[:id].to_i)
+        @goals = @datecard.goals
+        @gdcs = @datecard.goal_date_cards
+        #binding.pry
+        #@gdcs = @user.user_date_cards.find_by()
+        #        @datecard = DateCard.find_by(id: params[:id].to_i)        
+        #binding.pry
+        #@gdcs = []GoalDateCard.find_by()
         erb :'dates/show'
     end
 
@@ -37,9 +45,9 @@ class DatecardsController < ApplicationController
             goals=user.goals
 
             goals.each do |goal|
-                tmp = GoalDateCard.create(goal_id: goal.id, date_card_id: datecard.id)
-                tmp.binary_completed= "2" #initialize to not achieved
-                tmp.qty_completed = 0 #initialized to zero units achieved
+                tmp = GoalDateCard.create(goal_id: goal.id, date_card_id: datecard.id)  #duplicate saving, pinging db 
+                tmp.binary_completed= "3" #initialize to not achieved
+                tmp.qty_completed = -1 #initialized to zero units achieved
                 tmp.save
             end
             redirect "/dates/#{datecard.id}"

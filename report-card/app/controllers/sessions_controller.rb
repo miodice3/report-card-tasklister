@@ -35,15 +35,15 @@ class SessionsController < ApplicationController
     end
 
     post '/login' do
-        if User.all.find_by(username: params[:username])
-            @user = User.find_by(username: params[:username])
-            if @user.authenticate(params[:password])
-                session[:user_id] = @user.id
-                redirect to "/users/#{@user.id}"
-            else
-                erb :'sessions/login'
-            end
+#        if User.all.find_by(username: params[:username]) #duplicate searching, nil value will no longer crash code.
+        @user = User.find_by(username: params[:username])
+        if @user && @user.authenticate(params[:password])
+            session[:user_id] = @user.id
+            redirect to "/users/#{@user.id}"
+        else
+            erb :'sessions/login'
         end
+#        end
     end
 
     get '/logout' do

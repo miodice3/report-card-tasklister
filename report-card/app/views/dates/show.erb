@@ -2,14 +2,30 @@
 <h2>Please complete the information for this days goals below:</h2>
 <br>
 
-
+<%= @user.goal_date_cards.where(date_card_id: @datecard.id).all %><br>
 <% @user.goals.each do |goal| %>
+
 
 Goal: <%= goal.goal_name %><br>
 
+    <% @gdcs.each do |gdc| %>
+
+        <%if gdc.goal_id == goal.id %>
+            <%if goal.goal_type == "1" && gdc.binary_completed == "3" %>
+            <p style="color:red">THIS GOAL HAS NOT BEEN EDITED</p>
+            <% elsif goal.goal_type == "1" && gdc.binary_completed != "3" %>
+            <p style="color:blue">updated! 1/completed, 2/not completed, status: <%= gdc.binary_completed %></p>
+            <% elsif goal.goal_type == "2" && gdc.qty_completed == -1 %>
+            <p style="color:red">THIS GOAL HAS NOT BEEN EDITED</p>
+            <% elsif goal.goal_type == "2" && gdc.qty_completed != -1 %>
+            <p style="color:blue">updated! quantity: <%= gdc.qty_completed %></p>
+            <% end %>
+        <% end %>
+    <% end %>
+
     <form action="/gdcs" method="post">
         <% if goal.goal_type == "1" %>
-        This is an achieved yes / no type goal.  Please enter your selection below:<br><br>
+        
         <input type="radio" id="goal_type" name="gdc[binary_completed]" value="1">
         <label for="goal_type">Yes, achieved</label><br>
         <input type="radio" id="goal_type" name="gdc[binary_completed]" value="2">

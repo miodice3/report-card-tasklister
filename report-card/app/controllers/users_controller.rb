@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-   
+   #helper method for recalling current user
     def is_authorized
         if session[:user_id] != params[:id].to_i
             redirect to "/error"
