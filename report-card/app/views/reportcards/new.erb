@@ -1,7 +1,9 @@
 <h1>Hello <%= @user.first_name %>. Select report parameters below</h1>
 
 <form action="/reports" method="post">
-    Please note, each of your goals must be updated for each day selected.<br><br>
+    Please note, you must have dates created for each day selected.<br><br>
+    <label for="date">report end date date:</label>
+    <input type="date" id="date" name="date"><br>
     <label for="[num_days]">Please enter the # of previous days to be generated:</label>
     <input type="text" name="[num_days]" value=""><br>
 

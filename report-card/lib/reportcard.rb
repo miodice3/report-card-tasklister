@@ -1,8 +1,9 @@
 class ReportCard < ApplicationController
 
-    def self.run(params, session_id)
+    def self.run(params, session_id, last_date)
         @params = params             # number of dates user would like to request
         @session_id = session_id     # session id used to return exact user instance
+        @last_date = last_date
         self.varset
         self.date_populate
         self.prep
@@ -44,7 +45,10 @@ class ReportCard < ApplicationController
     def self.date_populate
         i=0
         @params.times do
-            @date = Date.today-i
+            #binding.pry
+            #@date = Date.today-i
+            #@date = @last_date-i
+            @date = Date.parse(@last_date)-i
             @date_array << @date.strftime("%Y-%m-%d")
             i += 1
         end
