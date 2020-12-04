@@ -16,7 +16,10 @@ class GoalDateCardsController < ApplicationController
             @gdc=GoalDateCard.find_by(goal_id: params[:gdc][:goal_id].to_i, date_card_id: params[:gdc][:date_card_id].to_i) #locate and update existing gdc belonging to user
             @gdc.update(params[:gdc])
             @gdc.save
-            redirect "/gdcs/#{@gdc.id}"
+            @date=DateCard.find_by_id(params[:gdc][:date_card_id])
+            #binding.pry
+            redirect "/dates/#{@date.id}"
+#            redirect "/gdcs/#{@gdc.id}"
         end
     end
 
