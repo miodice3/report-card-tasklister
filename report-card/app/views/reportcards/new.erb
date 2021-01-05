@@ -1,5 +1,5 @@
 <h1>Hello <%= @user.first_name %>. Select report parameters below</h1>
-
+You have <%= @user.date_cards.length %> dates.
 <form action="/reports" method="post">
     Please note, you must have dates created for each day selected.<br><br>
     <label for="date">report end date date:</label>

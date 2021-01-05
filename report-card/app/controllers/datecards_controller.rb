@@ -14,6 +14,7 @@ class DatecardsController < ApplicationController
     get '/dates/mydates' do
         @user = User.find_by_id(session[:user_id])
         @dates = @user.date_cards
+        @dates = @dates.sort_by{|item| -item.date }
         erb :'dates/mydates'
     end
 
